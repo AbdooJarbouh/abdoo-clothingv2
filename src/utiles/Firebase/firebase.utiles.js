@@ -1,9 +1,10 @@
 import { initializeApp } from 'firebase/app';
 import {
     getAuth,
-    signInWithRedirect,
     signInWithPopup,
-    GoogleAuthProvider
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
 } from 'firebase/auth';
 import {
     getFirestore,
@@ -19,7 +20,7 @@ const firebaseConfig = {
     storageBucket: "abdooclothingv2.appspot.com",
     messagingSenderId: "1098261693229",
     appId: "1:1098261693229:web:c1dc6b6c74b4b529d489a4"
-};
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -36,6 +37,8 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth) => {
+    if (!userAuth) return;
+    
     const userDocRef = doc(db, 'users', userAuth.uid)
     console.log(userDocRef); 
      const userSnapshot = await getDoc(userDocRef);
@@ -44,7 +47,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     if (!userSnapshot.exists()) {
         const { displayName, email } = userAuth;
         const createdAt = new Date()
-        
+
         try { 
             await setDoc(userDocRef, {
                 displayName,
@@ -55,5 +58,17 @@ export const createUserDocumentFromAuth = async (userAuth) => {
             console.log('error creating user' ,error.massage);
         }
     }
+return userDocRef;
+};
 
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+    if (!email || !password) return;
+
+    return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+    if (!email || !password) return;
+
+    return await signInWithEmailAndPassword(auth, email, password);
 };

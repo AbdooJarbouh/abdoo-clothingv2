@@ -13,7 +13,7 @@ return (
 
         <div className="nav-links-container">
                 <Link className="nav-link" to='/Shop'>Shop  </Link>
-                <Link className="nav-link" to='/signin'>sign in </Link>
+                <Link className="nav-link" to='/auth'>sign in </Link>
 
                
         </div>
