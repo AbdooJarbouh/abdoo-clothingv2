@@ -1,5 +1,5 @@
 .navigation {
-    height: 70px;
+    height: 60px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -19,8 +19,10 @@
       justify-content: flex-end;
   
       .nav-link {
-        padding: 50px 15px;
+        padding: 50px 10px;
         cursor: pointer;
+        font-size: 22px;
+        font-weight: bold;
 
         &.nav-link:last-of-type {
             padding-right:50px;

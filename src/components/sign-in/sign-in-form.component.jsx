@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, } from 'react';
 import {
     signInWithGooglePopup,
     createUserDocumentFromAuth,
@@ -16,7 +16,6 @@ const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password} = formFields;
 
-    
     const resetForm = () => {
         setFormFields(defaultFormFields)
     };
@@ -29,11 +28,10 @@ const SignInForm = () => {
         event.preventDefault();
       
         try {
-            const response = await signInAuthUserWithEmailAndPassword(
+            const {user} = await signInAuthUserWithEmailAndPassword(
                 email,
                 password
             );
-            console.log(response)
             resetForm();
         } catch (error) {
             switch (error.code) {
